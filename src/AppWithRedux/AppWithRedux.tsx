@@ -1,19 +1,10 @@
-import React, {useCallback} from 'react'
-import './App.css';
-import {TaskType, Todolist} from './Todolist';
-import {AddItemForm} from './AddItemForm/AddItemForm';
+import React from 'react'
+import '../App.css';
+import {TaskType, Todolist} from '../Todolist';
+import {AddItemForm} from '../AddItemForm/AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {
-    addTodolistAC,
-    changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
-} from './state/todolists-reducer';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from './state/store';
+import {useAppWithRedux} from "./hooks/useAppWithRedux";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistType = {
@@ -36,7 +27,7 @@ const Fake = React.memo(function() {
 
 function AppWithRedux() {
 
-    const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    /*const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch();
 
@@ -78,7 +69,20 @@ function AppWithRedux() {
     const addTodolist = useCallback( (title: string) => {
         const action = addTodolistAC(title);
         dispatch(action);
-    }, [dispatch]);
+    }, [dispatch]);*/
+
+    const {
+        todolists,
+        tasks,
+        removeTask,
+        addTask,
+        changeStatus,
+        changeTaskTitle,
+        changeFilter,
+        removeTodolist,
+        changeTodolistTitle,
+        addTodolist
+    } = useAppWithRedux()
 
     return (
         <div className="App">
